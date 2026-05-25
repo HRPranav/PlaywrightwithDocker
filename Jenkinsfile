@@ -3,7 +3,7 @@ pipeline {
     
     tools {
         // Updated to match the tool name you configured in Jenkins
-        nodejs "NodeJS_26.2" 
+        nodejs "NodeJS 26.2" 
     }
     
     stages {
