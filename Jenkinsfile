@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     tools {
-        // Must match the name configured in Manage Jenkins -> Global Tool Configuration
-        nodejs "NodeJS 26.2" 
+        // Updated to match the tool name you configured in Jenkins
+        nodejs "NodeJS_26.2" 
     }
     
     stages {
@@ -15,15 +15,17 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
-                // Essential: Installs the required chromium/firefox browsers and OS dependencies on the server
-                sh 'npx playwright install --with-deps'
+                // Changed from 'sh' to 'bat' for Windows compatibility
+                bat 'npm ci'
+                // Installs browsers and sets up local system permissions
+                bat 'npx playwright install --with-deps'
             }
         }
         
         stage('Execute Automation') {
             steps {
-                sh 'npm run test'
+                // Changed from 'sh' to 'bat'
+                bat 'npm run test'
             }
         }
     }
