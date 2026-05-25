@@ -1,30 +1,28 @@
 pipeline {
-    agent {
-        docker { 
-            // Uses the official Playwright image with pre-installed browsers
-            image '://microsoft.com' 
-            args '-u root' // Grants permission to create folders on the Jenkins runner
-        }
+    agent any
+    
+    tools {
+        // Must match the name configured in Manage Jenkins -> Global Tool Configuration
+        nodejs "NodeJS 18" 
     }
     
     stages {
         stage('Checkout') {
             steps {
-                // Pulls the latest code from your repository
                 checkout scm
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                // Installs package.json dependencies cleanly
                 sh 'npm ci'
+                // Essential: Installs the required chromium/firefox browsers and OS dependencies on the server
+                sh 'npx playwright install --with-deps'
             }
         }
         
         stage('Execute Automation') {
             steps {
-                // Runs the tests in headless mode inside the container
                 sh 'npm run test'
             }
         }
@@ -32,7 +30,6 @@ pipeline {
     
     post {
         always {
-            // Saves the local Playwright report to Jenkins so you can view it later
             archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
         }
     }
