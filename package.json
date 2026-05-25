@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     
-    "test": "playwright test tests/Locators.spec.ts",
+    "test:Locators": "playwright test tests/Locators.spec.ts",
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report"
   

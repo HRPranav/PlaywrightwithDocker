@@ -25,7 +25,7 @@ pipeline {
         stage('Execute Automation') {
             steps {
                 // Changed from 'sh' to 'bat'
-                bat 'npm run test'
+                bat 'npm run test:Locators'
             }
         }
     }
