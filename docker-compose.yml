@@ -1,15 +1,6 @@
 services:
-  app:
-    build: ./app
-    ports:
-      - "3000:3000"
-
   tests:
     build: .
-    depends_on:
-      - app
-    environment:
-      - BASE_URL=http://app:3000
     ipc: host
     volumes:
       - ./playwright-report:/app/playwright-report
